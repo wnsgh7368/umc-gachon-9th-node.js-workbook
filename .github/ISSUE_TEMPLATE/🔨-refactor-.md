@@ -1,7 +1,7 @@
 ---
 name: "\U0001F528 refactor:"
 about: 리펙토링 템플릿입니다.
-title: "♻️ refactor:"
+title: "\U0001F528 refactor:"
 labels: "\U0001F528 Refactor"
 assignees: wnsgh7368
 
