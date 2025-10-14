@@ -2,6 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { handleUserSignUp } from "./contollers/user.controller.js";
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post("/api/v1/auth/signup", handleUserSignup);
+app.post("/api/v1/auth/signup", handleUserSignUp);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
