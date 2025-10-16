@@ -1,5 +1,5 @@
 import { pool } from "../db.config.js";
-
+import { addReview } from "./review.repository.js";
 // User 데이터 삽입
 export const addUser = async (data) => {
   const conn = await pool.getConnection();
