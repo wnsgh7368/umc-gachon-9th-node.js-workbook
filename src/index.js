@@ -18,7 +18,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post("/api/v1/auth/signup", handleUserSignUp);
+app.post("/api/v1/auth/signup", handleUserSignUp); // 회원가입
+app.post("/api/v1/review", handleUserReview); // 리뷰 작성
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
