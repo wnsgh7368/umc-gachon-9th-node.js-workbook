@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { handleUserSignUp } from "./contollers/user.controller.js";
 import { handleUserReview } from "./contollers/review.controller.js";
+import { handleAddMission } from "./contollers/mission.controller.js";
+import { handleChallengeMission } from "./contollers/challengeMission.controller.js";
 
 dotenv.config();
 
@@ -20,7 +22,9 @@ app.get('/', (req, res) => {
 })
 
 app.post("/api/v1/auth/signup", handleUserSignUp);
-app.post("/api/v1/review", handleUserReview);
+app.post("/api/v1/reviews", handleUserReview);
+app.post("/api/v1/stores/:storeId/missions", handleAddMission); //미션 등록
+app.post("/api/v1/missions/:missionId/challenge", handleChallengeMission); //미션 도전
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
