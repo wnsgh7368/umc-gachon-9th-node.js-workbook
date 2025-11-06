@@ -26,6 +26,7 @@ model User {
   point             Int
   UserFavorCategory UserFavorCategory[]
   UserMission       UserMission[]
+  Review            Review[]
 
   @@map("user")
 }
@@ -57,7 +58,7 @@ model Store {
   address      String?   @db.VarChar(255)
   intformation String    @db.VarChar(30)
   Mission      Mission[]
-
+  Review       Review[]
   @@map("store")
 }
 
@@ -81,4 +82,16 @@ model UserMission {
   is_completed Boolean
 
   @@map("user_mission")
+}
+
+model Review {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int     @map("user_id")
+  store     Store   @relation(fields: [storeId], references: [id])
+  storeId   Int     @map("store_id")
+  score     Int
+  content   String  @db.VarChar(255)
+
+  @@map("review")
 }
