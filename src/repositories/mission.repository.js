@@ -61,4 +61,3 @@ export const getMission = async (missionId) => {
         conn.release();
     }
 };
-

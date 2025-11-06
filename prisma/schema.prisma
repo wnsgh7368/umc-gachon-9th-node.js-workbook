@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
@@ -26,6 +26,7 @@ model User {
   point             Int
   UserFavorCategory UserFavorCategory[]
   UserMission       UserMission[]
+  Review            Review[]
 
   @@map("user")
 }
@@ -57,7 +58,8 @@ model Store {
   address      String?   @db.VarChar(255)
   intformation String    @db.VarChar(30)
   Mission      Mission[]
-
+  Review       Review[]
+  
   @@map("store")
 }
 
@@ -79,6 +81,21 @@ model UserMission {
   mission      Mission @relation(fields: [missionId], references: [id])
   missionId    Int     @map("misison_id")
   is_completed Boolean
+  Review       Review[]
 
   @@map("user_mission")
+}
+
+model Review {
+  id            Int         @id @default(autoincrement())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int         @map("user_id")
+  store         Store       @relation(fields: [storeId], references: [id])
+  storeId       Int         @map("store_id")
+  userMission   UserMission @relation(fields: [userMissionId], references: [id])
+  userMissionId Int         @map("user_mission_id")
+  score         Int
+  content       String      @db.VarChar(255)
+
+  @@map("review")
 }
