@@ -25,7 +25,7 @@ app.post("/api/v1/auth/signup", handleUserSignUp);
 app.post("/api/v1/reviews", handleUserReview);
 app.post("/api/v1/stores/:storeId/missions", handleAddMission); //미션 등록
 app.post("/api/v1/missions/:missionId/challenge", handleChallengeMission); //미션 도전
-
+app.get("/api/v1/stores/:storeId/reviews", handleListStoreReviews);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

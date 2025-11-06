@@ -5,6 +5,7 @@ export const addReview = async (data) => {
 
     try{
         const[confirm] = await pool.query(
+            //해당 유저가 미션을 수행한게 맞는지
             'SELECT EXISTS(SELECT 1 FROM review WHERE user_id = ? AND mission_id = ?) as isExistReview;',
             [data.userId, data.missionId]
         );

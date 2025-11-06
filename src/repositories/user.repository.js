@@ -101,3 +101,5 @@ export const getUserPreferencesByUserId = async (userId) => {
     conn.release();
   }
 };
+
+
