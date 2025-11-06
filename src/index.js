@@ -6,6 +6,7 @@ import { handleUserSignUp } from "./contollers/user.controller.js";
 import { handleUserReview } from "./contollers/review.controller.js";
 import { handleAddMission } from "./contollers/mission.controller.js";
 import { handleListReviews } from "./contollers/store.controller.js";
+import { handleMyReviews } from "./contollers/me.controller.js";
 
 dotenv.config();
 
@@ -27,6 +28,10 @@ app.post("/api/v1/stores/:storeId/missions", handleAddMission); //미션 등록
 //미션 도전
 
 app.get("/api/v1/stores/:storeId/reviews", handleListReviews);
+
+//내가 작성한 리뷰 띄우기
+app.get("/api/v1/me/reviews", handleMyReviews);
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
