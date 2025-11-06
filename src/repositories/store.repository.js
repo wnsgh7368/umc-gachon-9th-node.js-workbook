@@ -17,9 +17,7 @@ export const getAllStoreReviews = async (storeId, cursor) => {
             },
         },
         where: { 
-            mission: {
-                storeId: storeId
-            },
+            storeId: storeId,
             id: { gt: cursor }
         },
         orderBy: { id: "asc" },
@@ -27,4 +25,22 @@ export const getAllStoreReviews = async (storeId, cursor) => {
     });
 
     return reviews;
+}
+
+export const getAllStoreMissions = async (storeId, cursor) => {
+    const missions = await prisma.mission.findMany({
+        select: {
+            id: true,
+            content: true,
+            reward: true,
+        },
+        where: {
+            storeId: storeId,
+            id: { gt: cursor }
+        },
+        orderBy: { id: "asc" },
+        take: 5,
+    });
+    
+    return missions;
 }

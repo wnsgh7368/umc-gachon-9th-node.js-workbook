@@ -14,7 +14,6 @@ export const addUser = async (data) => {
 export const getUser = async (userId) => {
   const user = await prisma.user.findFirstOrThrow( {where: {id: userId} } );
   return user;
-
 };
 
 // 음식 선호 카테고리 매핑

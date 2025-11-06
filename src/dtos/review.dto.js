@@ -3,7 +3,7 @@ export const bodyToReview = (body) => {
         userId: body.userId, 
         missionId: body.missionId, 
         userMissionId: body.userMissionId, 
-        rvContent: body.rvContent, 
+        content: body.content,
         score: body.score
     }
 }

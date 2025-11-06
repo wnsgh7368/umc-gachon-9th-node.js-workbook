@@ -6,3 +6,12 @@ export const responseFromReviews = (reviews) => {
       },
     };
   };
+
+export const responseFromMissionsOfStore = (missions) => {
+    return {
+        data: missions,
+        pagination: {
+            cursor: missions.length ? missions[missions.lengh -1].id : null,
+        },
+    };
+};
