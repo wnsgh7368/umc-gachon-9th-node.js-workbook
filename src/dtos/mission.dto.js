@@ -18,4 +18,3 @@ export const responseFromMission = (mission) => {
         updatedAt: missionData.updated_at
     }
 }
-

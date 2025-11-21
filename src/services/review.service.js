@@ -1,5 +1,6 @@
 import { addReview, getReview } from "../repositories/review.repository.js";
 import { responseFromReview } from "../dtos/review.dto.js";
+import { DuplicateReviewError } from "../errors.js";
 
 export const reviewSubmit = async (data) => {
     const reviewId = await addReview({
@@ -10,7 +11,7 @@ export const reviewSubmit = async (data) => {
         score: data.score
     });
     if(reviewId === null) {
-        throw new Error("이미 작성한 리뷰입니다.");
+        throw new DuplicateReviewError("이미 작성한 리뷰입니다.", data);
     }
     const review = await getReview(reviewId);
 

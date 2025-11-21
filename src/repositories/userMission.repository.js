@@ -1,5 +1,3 @@
-import { pool } from "../db.config.js";
-
 // 사용자가 이미 미션에 도전 중인지 확인
 export const checkUserMissionExists = async (userId, missionId) => {
     const check = await prisma.userMission.findFirst({where: {userId: userId, missionId: missionId}});
