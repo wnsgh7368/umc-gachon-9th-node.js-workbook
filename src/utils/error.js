@@ -2,6 +2,8 @@
  * 전역 오류를 처리하기 위한 미들웨어
  */
 export const errorHandler = (err, req, res, next) => {
+  console.error(err);
+
   if (res.headersSent) {
     return next(err);
   }
