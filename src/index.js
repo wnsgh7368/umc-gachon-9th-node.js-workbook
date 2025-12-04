@@ -2,7 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { handleUserSignUp } from "./contollers/user.controller.js";
+import { handleUserSignUp, handleUpdateMyInfo } from "./contollers/user.controller.js";
 import { handleUserReview } from "./contollers/review.controller.js";
 import { handleAddMission } from "./contollers/mission.controller.js";
 import { handleListReviews } from "./contollers/store.controller.js";
@@ -53,9 +53,19 @@ const swaggerOptions = {
         description: '로컬 서버',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   apis: ['./src/contollers/*.js', './src/index.js'],
 };
+
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.get("/oauth2/login/google", 
   passport.authenticate("google", { 
@@ -97,15 +107,17 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+const isLogin = passport.authenticate('jwt', { session: false });
+
 //API
 app.post("/api/v1/users/signup", handleUserSignUp);
-app.post("/api/v1/reviews", handleUserReview);
-app.post("/api/v1/stores/:storeId/missions", handleAddMission);
-app.get("/api/v1/stores/:storeId/reviews", handleListReviews);
-app.get("/api/v1/me/reviews", handleMyReviews);
-app.get("/api/v1/me/challenge-missions", handleMyMissions);
-
-const isLogin = passport.authenticate('jwt', { session: false });
+app.post("/api/v1/reviews", isLogin, handleUserReview);
+app.post("/api/v1/stores/:storeId/missions", isLogin, handleAddMission);
+app.get("/api/v1/stores/:storeId/reviews", isLogin, handleListReviews);
+app.get("/api/v1/me/reviews", isLogin, handleMyReviews);
+app.get("/api/v1/me/challenge-missions", isLogin, handleMyMissions);
+// 내 정보 수정 API
+app.patch("/api/v1/users/me", isLogin, handleUpdateMyInfo);
 
 app.get('/mypage', isLogin, (req, res) => {
   res.status(200).success({

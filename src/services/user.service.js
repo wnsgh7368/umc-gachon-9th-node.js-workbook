@@ -1,10 +1,11 @@
-import { responseFromUser } from "../dtos/user.dto.js";
+import { responseFromUser, responseFromUpdatedUser } from "../dtos/user.dto.js";
 import { DuplicateUserEmailError } from "../errors.js";
 import {
   addUser,
   getUser,
   getUserPreferencesByUserId,
   setPreference,
+  updateUser,
 } from "../repositories/user.repository.js";
 
 export const userSignUp = async (data) => {
@@ -25,4 +26,10 @@ export const userSignUp = async (data) => {
   const preferences = await getUserPreferencesByUserId(joinUserId);
 
   return responseFromUser({ user, preferences });
+};
+
+// 사용자 정보 수정
+export const updateUserInfo = async (userId, data) => {
+  const updatedUser = await updateUser(userId, data);
+  return responseFromUpdatedUser(updatedUser);
 };

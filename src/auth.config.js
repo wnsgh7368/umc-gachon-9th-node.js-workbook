@@ -14,7 +14,6 @@ export const generateAccessToken = (user) => {
         {expiresIn: '1h'}
     );
 };
-
 export const generateRefreshToken = (user) => {
     return jwt.sign(
         {id: user.id},

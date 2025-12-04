@@ -6,7 +6,6 @@ export const readMyReview = async (userId) => {
     if (!userId || isNaN(userId)) {
         throw new UserNotFoundError("유효하지 않은 userId입니다.", { userId });
     }
-    
     const myReview = await getMyReview(userId);
     return responseFromMyReview(myReview);
 }
