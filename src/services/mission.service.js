@@ -1,11 +1,12 @@
 import { checkStoreExists, addMission, getMission } from "../repositories/mission.repository.js";
 import { responseFromMission } from "../dtos/mission.dto.js";
+import { StoreNotFoundError } from "../errors.js";
 
 export const missionAdd = async (storeId, data) => {
     // 가게 존재 여부 확인
     const storeExists = await checkStoreExists(storeId);
     if (!storeExists) {
-        throw new Error("존재하지 않는 가게입니다.");
+        throw new StoreNotFoundError("존재하지 않는 가게입니다.", { storeId });
     }
 
     // 미션 추가
