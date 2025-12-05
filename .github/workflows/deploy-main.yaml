@@ -46,7 +46,14 @@ jobs:
           ssh umc9thworkbook 'sudo chown ubuntu:ubuntu /opt/app'
           
           echo "Copying files..."
-          scp -r ./[!.]* umc9thworkbook:/opt/app
+          # rsync 사용 (더 안정적, 진행 상황 표시)
+          rsync -avz --exclude='.git' --exclude='node_modules' --exclude='.env' ./ umc9thworkbook:/opt/app/ || {
+            echo "rsync failed, trying scp..."
+            # rsync가 없으면 scp 사용 (타임아웃 설정)
+            scp -o ConnectTimeout=30 -r ./[!.]* umc9thworkbook:/opt/app
+          }
+          
+          echo "Files copied successfully"
 
       - name: Install dependencies
         run: |
