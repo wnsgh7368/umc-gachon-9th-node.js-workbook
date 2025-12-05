@@ -26,6 +26,8 @@ jobs:
             User $EC2_USER
             IdentityFile ~/.ssh/id_rsa
             StrictHostKeyChecking no
+            BatchMode yes
+            ConnectTimeout 10
           END
         env:
           EC2_USER: ubuntu
@@ -34,8 +36,16 @@ jobs:
 
       - name: Copy Workspace
         run: |
+          echo "Testing SSH connection..."
+          ssh umc9thworkbook 'echo "SSH Connection successful"'
+          
+          echo "Creating directory..."
           ssh umc9thworkbook 'sudo mkdir -p /opt/app'
+          
+          echo "Changing ownership..."
           ssh umc9thworkbook 'sudo chown ubuntu:ubuntu /opt/app'
+          
+          echo "Copying files..."
           scp -r ./[!.]* umc9thworkbook:/opt/app
 
       - name: Install dependencies
